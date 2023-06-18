@@ -7,6 +7,7 @@ const TeamRouter = require('./routes/team');
 const clientRouter = require('./routes/client');
 //const inventoryRouter = require('./routes/inventory');
 const crypto = require('crypto');
+const cors = require('cors');
 
 require('dotenv').config();
 
@@ -19,8 +20,8 @@ connectDB();
 // Middleware
 app.use(bodyParser.json());
 
-// Routes
-//app.use('/api', api);
+// Enable CORS
+app.use(cors());
 
 
 app.use('/users', usersRouter);

@@ -11,8 +11,17 @@ const sendResetPasswordEmail = require('../utils/resetEmail');
 router.post("/register", async (req, res, next) => {
   try {
     const { email, password, role, name, lastName, phoneNumber } = req.body;
+
+    // Check if the email already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({ message: "User already exists" });
+    }
+
+    // Create a new user
     const user = new User({ email, password, role, name, lastName, phoneNumber });
     await user.save();
+
     res.json({ message: "User created successfully" });
   } catch (err) {
     next(err);
