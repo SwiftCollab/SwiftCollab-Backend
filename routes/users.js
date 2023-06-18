@@ -10,8 +10,8 @@ const sendResetPasswordEmail = require('../utils/resetEmail');
 //http://localhost:3000/users/register
 router.post("/register", async (req, res, next) => {
   try {
-    const { email, password, role } = req.body;
-    const user = new User({ email, password, role });
+    const { email, password, role, name, lastName, phoneNumber } = req.body;
+    const user = new User({ email, password, role, name, lastName, phoneNumber });
     await user.save();
     res.json({ message: "User created successfully" });
   } catch (err) {
