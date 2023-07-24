@@ -5,14 +5,14 @@ const router = express.Router();
 const dashboardController = require('../controllers/dashboardController');
 
 // Import the middleware functions
-const { isAuthenticated } = require('../middlewares/authMiddleware');
+const { auth } = require('../middlewares/auth.js');
 const { checkRole } = require('../middlewares/role');
 
 // Protected route that requires the 'admin' role
-router.get('/admin-dashboard', isAuthenticated, checkRole('admin'), dashboardController.getAdminDashboard);
+router.get('/admin-dashboard', auth, checkRole('admin'), dashboardController.getAdminDashboard);
 
 // Protected route that requires the 'moderator' role
-router.get('/moderator-dashboard', isAuthenticated, checkRole('moderator'), dashboardController.getModeratorDashboard);
+router.get('/moderator-dashboard', auth, checkRole('moderator'), dashboardController.getModeratorDashboard);
 
 // Your other routes
 
