@@ -5,6 +5,7 @@ const usersRouter = require('./routes/users');
 const projectsRouter = require('./routes/projects');
 const TeamRouter = require('./routes/team');
 const clientRouter = require('./routes/client');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 //const inventoryRouter = require('./routes/inventory');
 const crypto = require('crypto');
 const cors = require('cors');
@@ -28,6 +29,7 @@ app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
 app.use('/teams', TeamRouter);
 app.use('/clients', clientRouter);
+app.use('/dashboard', checkRole('admin'), dashboardRoutes);
 //app.use('/inventory', inventoryRouter);
 
 
