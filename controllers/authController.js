@@ -26,7 +26,7 @@ const login = async (req, res) => {
     const token = createToken(user._id);
 
     if (user.role === 'admin') {
-      // Set the redirection URL for the admin role
+      // Set the redirection URL for the admin role 
       res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
       res.status(200).json({ user: user._id, redirectUrl: '/admin-dashboard' });
     } else if (user.role === 'moderator') {
