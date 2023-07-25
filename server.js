@@ -9,6 +9,7 @@ const dashboardRoutes = require('./routes/dashboardRoutes');
 //const inventoryRouter = require('./routes/inventory');
 const crypto = require('crypto');
 const cors = require('cors');
+const { checkRole } = require('./middlewares/role');
 
 require('dotenv').config();
 
