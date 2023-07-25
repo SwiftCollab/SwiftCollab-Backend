@@ -37,27 +37,22 @@ router.post("/login", async (req, res, next) => {
     if (!user) {
       return res.status(401).json({ message: "Authentication failed" });
     }
-
-    const isValidPassword = await user.comparePassword(password);
-    if (!isValidPassword) {
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
       return res.status(401).json({ message: "Authentication failed" });
     }
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
 
-    const token = createToken(user._id, user.role);
-    console.log("role: " + user.role)
-
-    // Set the redirection URL based on the user's role
-    let redirectUrl = '/dashboard'; // Default redirection URL for non-admin and non-moderator roles
+    // Add the urlRedirect property to the response
+    let urlRedirect = '/dashboard'; // Default redirection URL for non-admin and non-moderator roles
 
     if (user.role === 'admin') {
-      redirectUrl = '/admin-dashboard';
+      urlRedirect = '/admin-dashboard';
     } else if (user.role === 'moderator') {
-      redirectUrl = '/dashboard-moderator';
+      urlRedirect = '/dashboard-moderator';
     }
 
-    // Send the JWT token and redirectUrl in the response
-    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.status(200).json({ token, redirectUrl });
+    res.json({ token, urlRedirect });
   } catch (err) {
     next(err);
   }
