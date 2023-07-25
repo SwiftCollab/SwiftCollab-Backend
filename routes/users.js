@@ -44,6 +44,7 @@ router.post("/login", async (req, res, next) => {
     }
 
     const token = createToken(user._id, user.role);
+    console.log("role: " + user.role)
 
     // Set the redirection URL based on the user's role
     let redirectUrl = '/dashboard'; // Default redirection URL for non-admin and non-moderator roles
