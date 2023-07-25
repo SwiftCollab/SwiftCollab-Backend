@@ -12,7 +12,7 @@ const { checkRole } = require('../middlewares/role');
 //router.get('/admin-dashboard', auth, checkRole("admin"), dashboardController.getAdminDashboard);
 
 // Protected route that requires the 'moderator' role
-router.get('/moderator-dashboard', auth, checkRole("admin", "moderator"), dashboardController.getModeratorDashboard);
+router.get('/moderator-dashboard', auth, checkRole("admin", "moderator"));
 
 // Your other routes
 
