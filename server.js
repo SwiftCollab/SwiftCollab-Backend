@@ -30,7 +30,7 @@ app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
 app.use('/teams', TeamRouter);
 app.use('/clients', clientRouter);
-app.use('/dashboard', checkRole('admin'), dashboardRoutes);
+app.use('/admin-dashboard', checkRole('admin'), dashboardRoutes);
 //app.use('/inventory', inventoryRouter);
 
 

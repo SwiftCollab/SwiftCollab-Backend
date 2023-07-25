@@ -24,8 +24,20 @@ const login = async (req, res) => {
     }
 
     const token = createToken(user._id);
-    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.status(200).json({ user: user._id });
+
+    if (user.role === 'admin') {
+      // Set the redirection URL for the admin role
+      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+      res.status(200).json({ user: user._id, redirectUrl: '/admin-dashboard' });
+    } else if (user.role === 'moderator') {
+      // Set the redirection URL for the moderator role
+      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+      res.status(200).json({ user: user._id, redirectUrl: '/dashboard-moderator' });
+    } else {
+      // Set the redirection URL for other roles (e.g., 'user', etc.)
+      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+      res.status(200).json({ user: user._id, redirectUrl: '/dashboard' });
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
